@@ -10,7 +10,7 @@ public class Controller {
     private Model model;
     private View view;
      int intValue = 0;
-     int tmp;
+   
 
 
     public Controller(Model model, View view)
