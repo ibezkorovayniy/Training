@@ -19,7 +19,6 @@ public class Controller {
         this.view = view;
     }
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public void numberGame() throws IOException {
         model.setMinBorder(1);
@@ -28,65 +27,49 @@ public class Controller {
         view.printMessage(view.MORE_OR_LESS_GAME);
         view.printMessage(view.PICK_A_NUMBER);
         setUserNumber();
-        compare(model.getUserNumber(), model.getSecretNumber());
     }
 
     public void setUserNumber() throws IOException {
-        checkRange();
-        System.out.println(model.getUserNumber());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        inputNumber(reader);
     }
 
-    public boolean checkIntValue() throws IOException {
-        try {
-            intValue = Integer.parseInt(reader.readLine());
-        } catch (NumberFormatException e) {
-            view.printMessage(view.WRONG_INPUT);
-            return false;
+    void inputNumber(BufferedReader reader) throws IOException {
+        while (model.getSecretNumber() != intValue) {
+            try {
+                intValue = Integer.parseInt(reader.readLine());
+
+                if (intValue > model.getMaxBorder() || intValue < model.getMinBorder()) {
+                    view.printMessage(view.WRONG_RANGE);
+                    view.addStat(intValue);
+                } else {
+                    view.addStat(intValue);
+                    compare(intValue);
+                }
+            } catch (NumberFormatException e) {
+                view.printMessage(view.WRONG_INPUT);
+            }
         }
-        tmp = intValue;
-        return true;
+        view.printMessage(view.WINNER);
+        view.printStat();
     }
 
-    void checkRange() throws IOException {
-        while(!checkIntValue()){
-        }
-        if(tmp < model.getMinBorder() || tmp > model.getMaxBorder())
+    public void compare(int userNumber) throws IOException {
+        if(userNumber >model.getSecretNumber())
         {
-            view.printMessage(view.WRONG_RANGE);
-            checkRange();
+            view.printMessage(view.NUMBER_IS_BIGGER);
+            model.setMaxBorder(intValue);
+            view.changeRange((model.getMinBorder()), model.getMaxBorder());
         }
         else
         {
-            model.setUserNumber(tmp);
+            view.printMessage(view.NUMBER_IS_LOWER);
+            model.setMinBorder(intValue);
+            view.changeRange(model.getMinBorder(), (model.getMaxBorder()));
+
         }
-    }
-
-    public void compare(int secretNumber, int userNumber) throws IOException {
-        while(secretNumber != userNumber)
-        {
-            if(userNumber > secretNumber)
-            {
-                view.printMessage(view.NUMBER_IS_BIGGER);
-                model.setMaxBorder(model.getUserNumber());
-                view.changeRange((model.getMinBorder()), model.getMaxBorder());
-
-            }
-            else
-            {
-                view.printMessage(view.NUMBER_IS_LOWER);
-                model.setMinBorder(model.getUserNumber());
-                view.changeRange(model.getMinBorder(), (model.getMaxBorder()));
-
-            }
-        }
-            view.printMessage(view.WINNER);
-        //view.printStat();
     }
 }
-
-
-
-
 
 
 

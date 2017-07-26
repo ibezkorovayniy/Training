@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by i.bezkorovayniy on 25.07.2017.
  */
@@ -24,14 +26,18 @@ public class View {
         System.out.println("Now try again between " + minBorder + " and " + maxBorder);
     }
 
+    ArrayList<Integer > attempts = new ArrayList<>();
 
-/*
-    public void printStat()
-    {
-        for(int stat : list)
+    void addStat(int  value){
+        attempts.add(value);
+    }
+
+    public void printStat() {
+
+        for(int stat : attempts)
         {
             System.out.println(stat);
         }
     }
-    */
+
 }

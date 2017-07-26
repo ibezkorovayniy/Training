@@ -6,7 +6,6 @@ public class Model {
     private int minBorder;
     private int maxBorder;
     private int secretNumber;
-    private int userNumber;
     View view;
 
     //set
@@ -20,11 +19,6 @@ public class Model {
         this.maxBorder = maxBorder;
     }
 
-    public void setUserNumber(int userNumber) {
-
-        this.userNumber = userNumber;
-
-    }
 
     //get
 
@@ -40,9 +34,6 @@ public class Model {
         return secretNumber;
     }
 
-    public int getUserNumber() {
-        return userNumber;
-    }
 
 
     //random number
